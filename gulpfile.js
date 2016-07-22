@@ -1,5 +1,5 @@
 var gulp = require('gulp'),
-	jade = require('gulp-jade'),
+	pug = require('gulp-pug'),	
 	sass = require('gulp-sass'),
 	uglify = require('gulp-uglify'),
 	rename = require('gulp-rename'),
@@ -16,10 +16,12 @@ gulp.task('browser-sync', function(){
 	})
 });
 
-gulp.task('jade', function(){
-	return gulp.src('src/templates/**/*.jade')
-	.pipe(jade())
-	.pipe(gulp.dest('builds/development'))
+gulp.task('pug', function buildHTML() {
+  return gulp.src('src/templates/**/*.pug')
+  .pipe(pug({
+    pretty: true
+  }))
+  	.pipe(gulp.dest('builds/development'))
 	.pipe(browserSync.reload({
 		stream: true
 	}))
@@ -44,9 +46,9 @@ gulp.task('scripts', function(){
 		}))
 });
 
-gulp.task('watch', ['sass', 'jade', 'browser-sync'], function(){
+gulp.task('watch', ['sass', 'pug', 'browser-sync'], function(){
 	gulp.watch('src/assets/sass/**/*.scss', ['sass']);
-	gulp.watch('src/templates/**/*.jade', ['jade']);
+	gulp.watch('src/templates/**/*.pug', ['pug']);
 	gulp.watch('src/assets/js/**/*.js', ['scripts']);
 });
 
@@ -55,13 +57,13 @@ gulp.task('clean:builds', function(){
 });
 
 gulp.task('build', function(callback){
-	runSequence('clean:builds', ['jade', 'sass', 'scripts', 'watch', 'browser-sync'], 
+	runSequence('clean:builds', ['pug', 'sass', 'scripts', 'watch', 'browser-sync'], 
 		callback
 	)
 });
 
 gulp.task('default', function(callback){
-	runSequence(['jade', 'sass', 'scripts', 'watch', 'browser-sync'], 
+	runSequence(['pug', 'sass', 'scripts', 'watch', 'browser-sync'], 
 		callback
 	)
 });
