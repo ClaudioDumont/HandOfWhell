@@ -14,11 +14,7 @@ Install deps
 ```console
 $ npm install
 ```
-
 Run and Fun!!
 ```console
 $ gulp
 ```
-
-## Gulp Tasks
-Lorem ipsum Non voluptate eiusmod sint nulla sit sint consectetur commodo dolore dolore ex eu irure dolore enim nostrud ea qui Excepteur.

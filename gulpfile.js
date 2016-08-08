@@ -1,10 +1,13 @@
 var gulp = require('gulp'),
-	pug = require('gulp-pug'),	
+	fs = require('fs'),
+	data = require('gulp-data'),
+	pug = require('gulp-pug'),
 	sass = require('gulp-sass'),
 	uglify = require('gulp-uglify'),
 	rename = require('gulp-rename'),
 	del = require('del'),
 	runSequence = require('run-sequence'),
+	bower = require('gulp-bower'),
 	browserSync = require('browser-sync').create();
 
 
@@ -16,8 +19,20 @@ gulp.task('browser-sync', function(){
 	})
 });
 
+gulp.task('bower', function(){
+	return bower('bower_components')
+	.pipe(gulp.dest('builds/development/assets/lib/'))
+});
+
 gulp.task('pug', function buildHTML() {
   return gulp.src('src/templates/**/*.pug')
+
+  .pipe(data( function(file) {
+                  return JSON.parse(
+                    fs.readFileSync('src/templates/data/the-big-data.json')
+                  );
+                } ))
+
   .pipe(pug({
     pretty: true
   }))
@@ -57,13 +72,13 @@ gulp.task('clean:builds', function(){
 });
 
 gulp.task('build', function(callback){
-	runSequence('clean:builds', ['pug', 'sass', 'scripts', 'watch', 'browser-sync'], 
+	runSequence('clean:builds', ['pug', 'bower', 'sass', 'scripts', 'watch', 'browser-sync'], 
 		callback
 	)
 });
 
 gulp.task('default', function(callback){
-	runSequence(['pug', 'sass', 'scripts', 'watch', 'browser-sync'], 
+	runSequence(['pug', 'bower', 'sass', 'scripts', 'watch', 'browser-sync'], 
 		callback
 	)
 });

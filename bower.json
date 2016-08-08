@@ -1,0 +1,20 @@
+{
+  "name": "buildSystemPug",
+  "description": "Build system for development front-end to new websites with gulp, pug and live reload",
+  "main": "gulpfile.js",
+  "authors": [
+    "Claudio Dumont <claudio.dumont@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/ClaudioDumont/buildSystemJade",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
