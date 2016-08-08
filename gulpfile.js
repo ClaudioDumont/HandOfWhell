@@ -28,10 +28,10 @@ gulp.task('pug', function buildHTML() {
   return gulp.src('src/templates/**/*.pug')
 
   .pipe(data( function(file) {
-                  return JSON.parse(
-                    fs.readFileSync('src/templates/data/the-big-data.json')
-                  );
-                } ))
+	  return JSON.parse(
+	    fs.readFileSync('src/templates/data/the-big-data.json')
+	  );
+   }))
 
   .pipe(pug({
     pretty: true
